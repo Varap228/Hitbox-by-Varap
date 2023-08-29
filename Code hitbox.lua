@@ -2,9 +2,9 @@ getgenv().SecureMode = true
 if not game.Players.LocalPlayer.Character then
     game:GetService("StarterGui"):SetCore("SendNotification",{
         Title = "No local character", 
-        Text = "Wait for the character to load!"
+        Text = "wait for the character to load!"
     })
-    repeat wait() 
+    repeat task.wait() 
     until game.Players.LocalPlayer.Character
 end
 game:GetService("StarterGui"):SetCore("SendNotification", {
@@ -61,7 +61,7 @@ for i, v in next, game:GetService("Players"):GetPlayers() do
 end
 
 local Button = Tab:CreateButton({
-	Name = "Button Esp",
+	Name = "Button Esp (Ban risk)",
 	Callback = function()
         loadstring(game:HttpGet('https://raw.githubusercontent.com/ic3w0lf22/Unnamed-ESP/master/UnnamedESP.lua', true))()
 	end,
@@ -124,7 +124,7 @@ local Toggle = Tab:CreateToggle({
                         end)
                     end
                 end
-                wait()
+                task.wait()
             end 
         else
             backHitBox()          
@@ -158,7 +158,7 @@ local Toggle = Tab:CreateToggle({
                         end)
                     end
                 end
-                wait()
+                task.wait()
             end 
         else
             backHitBox()          
@@ -250,6 +250,35 @@ local SliderFog = TabVis:CreateSlider({
         game:GetService("Lighting").FogEnd = FogValue
 	end,
 })
+if game:GetService("Lighting"):FindFirstChildWhichIsA("Atmosphere") then
+local Label = TabVis:CreateLabel("Atmosphere")
+local backAt = game:GetService("Lighting"):FindFirstChildWhichIsA("Atmosphere").Density
+local ToggleAtmosphere = TabVis:CreateToggle({
+   Name = "Toggle Atmosphere",
+   CurrentValue = false,
+   Flag = "ToggleAtmosphere",
+   Callback = function(AtmosphereValue)
+
+    if AtmosphereValue then
+        
+        game:GetService("Lighting"):FindFirstChildWhichIsA("Atmosphere").Density = 0
+    else
+        game:GetService("Lighting"):FindFirstChildWhichIsA("Atmosphere").Density = backAt
+    end
+   end,
+})
+local SliderAtmosphere = TabVis:CreateSlider({
+	Name = "Atmosphere slider",
+	Range = {0, 1},
+	Increment = 0.01,
+	Suffix = "",
+	CurrentValue = game:GetService("Lighting"):FindFirstChildWhichIsA("Atmosphere").Density,
+	Flag = "AtmosphereSlider", 
+	Callback = function(AtmosphereValue)
+        game:GetService("Lighting"):FindFirstChildWhichIsA("Atmosphere").Density = AtmosphereValue
+	end,
+}) 
+end
 local Label = Tab:CreateLabel("Destroy")
 local Button = Tab:CreateButton({
 	Name = "Destroy UI",
