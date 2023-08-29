@@ -258,9 +258,7 @@ local ToggleAtmosphere = TabVis:CreateToggle({
    CurrentValue = false,
    Flag = "ToggleAtmosphere",
    Callback = function(AtmosphereValue)
-
     if AtmosphereValue then
-        
         game:GetService("Lighting"):FindFirstChildWhichIsA("Atmosphere").Density = 0
     else
         game:GetService("Lighting"):FindFirstChildWhichIsA("Atmosphere").Density = backAt
@@ -279,6 +277,19 @@ local SliderAtmosphere = TabVis:CreateSlider({
 	end,
 }) 
 end
+local Label = TabVis:CreateLabel("Clock time")
+local SliderClockTime = TabVis:CreateSlider({
+	Name = "ClockTime slider",
+	Range = {0, 23},
+	Increment = 0.01,
+	Suffix = "",
+	CurrentValue = game:GetService("Lighting").ClockTime,
+	Flag = "ClockTimeSlider", 
+	Callback = function(ClockTimeValue)
+        game:GetService("Lighting").ClockTime = ClockTimeValue
+	end,
+}) 
+
 local Label = Tab:CreateLabel("Destroy")
 local Button = Tab:CreateButton({
 	Name = "Destroy UI",
